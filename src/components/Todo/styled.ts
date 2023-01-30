@@ -33,30 +33,34 @@ export const LogoText = styled.h1`
 export const TodoBackground = styled.div<IThemeProp>`
 	${tw`
         rounded-lg
+        px-4
+        flex
+        gap-4
+        py-3
     `}
 
 	${(p) =>
 		p.$dark
 			? tw`
         bg-Very_Dark_Desaturated_Blue
+        text-Very_Light_Gray
 
     `
 			: tw`
         bg-Very_Light_Gray    
+        text-Very_Dark_Grayish_Blue
     `}
 `;
 
-
-
-
-export const TodoInputWrapper = styled.input<IThemeProp>`
+export const TodoInputWrapper = styled.textarea<IThemeProp>`
 	${tw`
         w-full
-        h-12
         bg-transparent
         outline-none
         align-middle
-        pt-1
+        resize-none
+        overflow-auto
+        
     `}
 	${(p) =>
 		p.$dark
@@ -68,15 +72,21 @@ export const TodoInputWrapper = styled.input<IThemeProp>`
         `}
 `;
 
-
-
 export const Circle = styled.button`
-    ${tw`
-        h-5
+	${tw`
+        h-7
         aspect-square
         border-2
-        border-Dark_Grayish_Blue
+        border-Very_Light_Grayish_Blue
         rounded-full
-        mx-4
     `}
-`
+`;
+
+export const TodoRecordWrapper = styled(TodoBackground)`
+	${tw`
+            flex-col
+            px-0
+            py-2
+            gap-0
+        `}
+`;

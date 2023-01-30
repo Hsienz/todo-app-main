@@ -6,10 +6,10 @@ import { GlobalStyles } from "twin.macro";
 import ThemeProvider from "./contexts/ThemeContext";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-	<React.StrictMode>
+	<>
 		<GlobalStyles />
 		<ThemeProvider>
 			<App />
 		</ThemeProvider>
-	</React.StrictMode>
+	</>
 );

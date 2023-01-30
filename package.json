@@ -15,7 +15,8 @@
     "babel-plugin-twin": "^1.1.0",
     "postcss": "^8.4.21",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-textarea-autosize": "^8.4.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-react-jsx": "^7.20.13",
