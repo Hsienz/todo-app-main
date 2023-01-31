@@ -1,5 +1,6 @@
 import { Circle, TodoBackground, TodoInputWrapper } from "./styled";
 import { useTheme } from "../../contexts/ThemeContext";
+import React, { useImperativeHandle } from "react";
 import {
 	ChangeEvent,
 	KeyboardEvent,
@@ -12,6 +13,7 @@ import { ITodo } from "./Todo";
 import TextareaAutosize from "react-textarea-autosize";
 import iconCross from "../../assets/images/icon-cross.svg";
 import iconCheck from "../../assets/images/icon-check.svg";
+
 interface ITodoInputProp {
 	value: string;
 	addTodo?: (x: ITodo) => void;
@@ -20,9 +22,10 @@ interface ITodoInputProp {
 	delete?: () => void;
 	remain?: number;
 	setRemain?: Dispatch<SetStateAction<number>>;
+	option?:string
 }
 
-const TodoInput = (props: ITodoInputProp) => {
+const TodoInput = React.forwardRef((props: ITodoInputProp, ref) => {
 	const { dark } = useTheme();
 	const [value, setValue] = useState(props.value);
 	const [checked, setChecked] = useState(props.checked);
@@ -55,9 +58,11 @@ const TodoInput = (props: ITodoInputProp) => {
 			props.setRemain((x) => x + 1);
 		}
 	}, []);
-
+	useImperativeHandle(ref,()=>({
+		checked
+	}))
 	return (
-		<TodoBackground $dark={dark} tw="flex items-center">
+		<TodoBackground $dark={dark} tw="flex items-center" className={`${props.option == "active" && checked || props.option=="completed" && !checked ? "!hidden" : "" }`}>
 			<Circle
 				onClick={handleCheck}
 				className={`${
@@ -92,6 +97,6 @@ const TodoInput = (props: ITodoInputProp) => {
 			)}
 		</TodoBackground>
 	);
-};
+})
 
 export default TodoInput;
