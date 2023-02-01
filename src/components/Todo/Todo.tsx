@@ -1,18 +1,10 @@
 import { useTheme } from "../../contexts/ThemeContext";
-import {
-	LogoText,
-	ThemeButton,
-	ThemeImg,
-	TodoBackground,
-	Wrapper,
-	TodoRecordWrapper,
-} from "./styled";
 import TodoInput from "./TodoInput";
 import iconSun from "../../assets/images/icon-sun.svg";
 import iconMoon from "../../assets/images/icon-moon.svg";
-import { Row } from "../../style";
 import { useEffect, useRef, useState } from "react";
 import TodoOptions from "./TodoOptions";
+
 
 export interface ITodo {
 	value: string;
@@ -67,18 +59,17 @@ const Todo = () => {
 			// @ts-ignore
 			if (records.current[i]?.checked == true) deleteTodo(i)();
 		}
-		console.log(records);
 	};
 	return (
-		<Wrapper tw="flex flex-col gap-6">
-			<Row tw="justify-between">
-				<LogoText>TODO</LogoText>
-				<ThemeButton onClick={toggleDark}>
-					<ThemeImg src={dark ? iconSun : iconMoon} alt="" />
-				</ThemeButton>
-			</Row>
+		<div className="flex flex-col gap-6 max-w-[724px] w-full m-6">
+			<div className="flex justify-between">
+				<h1 className="text-3xl tracking-[0.8rem] font-bold text-Light_Very_Light_Gray">TODO</h1>
+				<button className="aspect-square h-7" onClick={toggleDark}>
+					<img className="h-full w-full" src={dark ? iconSun : iconMoon} alt="" />
+				</button>
+			</div>
 			<TodoInput addTodo={addTodo} checked={false} value="" />
-			<TodoRecordWrapper $dark={dark}>
+			<div className={`shadow-2xl rounded-lg py-3 flex flex-col ${dark ? "text-Dark_Very_Dark_Grayish_Blue bg-Dark_Very_Dark_Desaturated_Blue" : "text-Light_Very_Dark_Grayish_Blue bg-Light_Very_Light_Gray"}`}>
 				{todoList.map((x, i) => (
 					<TodoInput
 						ref={(el: HTMLDivElement) => (records.current[i] = el)}
@@ -91,18 +82,18 @@ const Todo = () => {
 						option={option}
 					/>
 				))}
-				<TodoBackground $dark={dark} className="flex justify-between items-center">
+				<div className={`flex justify-between items-center rounded-lg px-4 gap-4 py-3 ${dark ? "text-Dark_Very_Dark_Grayish_Blue": "text-Light_Dark_Grayish_Blue" }`}>
 					<p>{remain} items left</p>
 					<div className="hidden lg:block">
-						<TodoOptions name="todoOptionDesktop" setOption={setOption}/>
+						<TodoOptions option={option} name="todoOptionDesktop" setOption={setOption}/>
 					</div>
 					<button onClick={deleteCompleted}>Clear Completed</button>
-				</TodoBackground>
-			</TodoRecordWrapper>
-			<div className="lg:hidden">
-				<TodoOptions name="todoOptionMobile" setOption={setOption} />
+				</div>
 			</div>
-		</Wrapper>
+			<div className="lg:hidden shadow-lg">
+				<TodoOptions option={option} name="todoOptionMobile" setOption={setOption} />
+			</div>
+		</div>
 	);
 };
 

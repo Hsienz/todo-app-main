@@ -1,4 +1,3 @@
-import { Circle, TodoBackground, TodoInputWrapper } from "./styled";
 import { useTheme } from "../../contexts/ThemeContext";
 import React, { useImperativeHandle } from "react";
 import {
@@ -62,26 +61,28 @@ const TodoInput = React.forwardRef((props: ITodoInputProp, ref) => {
 		checked
 	}))
 	return (
-		<TodoBackground $dark={dark} tw="flex items-center" className={`${props.option == "active" && checked || props.option=="completed" && !checked ? "!hidden" : "" }`}>
-			<Circle
+		<div className={`flex items-center rounded-lg px-6 gap-4 py-3 ${dark ? "bg-Dark_Very_Dark_Desaturated_Blue text-Dark_Light_Grayish_Blue" : "bg-Light_Very_Light_Gray text-Light_Very_Dark_Grayish_Blue"} ${props.option == "active" && checked || props.option=="completed" && !checked ? "!hidden" : "" }`}>
+			<button
 				onClick={handleCheck}
-				className={`${
+				className={`h-7 aspect-square border-[1px] rounded-full ${
 					checked
 						? "from-Cyan to-Pink bg-gradient-to-br border-none"
 						: ""
-				}`}
+				} ${dark ? "border-Dark_Very_Dark_Grayish_Blue" : "border-Light_Very_Light_Grayish_Blue"}`	
+			}
 			>
-				{checked && <img tw="h-3 m-auto" src={iconCheck} alt="" />}
-			</Circle>
+				{checked && <img className="h-3 m-auto" src={iconCheck} alt="" />}
+			</button>
 			<TextareaAutosize
-				tw="w-full bg-transparent outline-none resize-none py-3"
-				className={`${
+				className={`
+				w-full bg-transparent outline-none resize-none py-3
+				${
 					checked
 						? `line-through ${
 								dark
-									? "text-Dark_Grayish_Blue"
-									: "text-Very_Light_Grayish_Blue"
-						  }`
+									? "text-Dark_Dark_Grayish_Blue"
+									: "text-Light_Very_Light_Grayish_Blue"
+						}`
 						: ""
 				}`}
 				onChange={handleOnChange}
@@ -95,7 +96,7 @@ const TodoInput = React.forwardRef((props: ITodoInputProp, ref) => {
 					<img src={iconCross} alt="" />
 				</button>
 			)}
-		</TodoBackground>
+		</div>
 	);
 })
 

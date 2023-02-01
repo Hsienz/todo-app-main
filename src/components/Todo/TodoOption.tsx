@@ -1,3 +1,5 @@
+import { useTheme } from "../../contexts/ThemeContext"
+
 export interface ITodoOptionProp {
     id: string,
     name: string,
@@ -6,10 +8,11 @@ export interface ITodoOptionProp {
     defaultChecked?: boolean
 }
 const TodoOption = (props:ITodoOptionProp) => {
+    const {dark} = useTheme()
     return (
-        <div>
+        <div className={`font-bold duration-300 ${dark ? "text-Dark_Dark_Grayish_Blue hover:text-Dark_Light_Grayish_Blue_hover" : "text-Dark_Light_Grayish_Blue hover:text-Light_Very_Dark_Grayish_Blue" }`}>
 			<input className="appearance-none" type="radio" id={props.id} value={props.value} name={props.name} defaultChecked={props.defaultChecked}/>
-            <label htmlFor={props.id}>{props.content}</label>
+            <label className="cursor-pointer checked:!text-Bright_Blue" htmlFor={props.id}>{props.content}</label>
         </div>
     )
 }
